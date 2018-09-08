@@ -1,0 +1,25 @@
+body {
+    background-color: #e9ecef; 
+}
+
+.form-control:focus {
+    box-shadow: 0 0 0 0.07rem rgba(0, 123, 255, .25);
+}
+
+.container {
+    margin-top: 10vh;
+}
+
+.heading {
+    font-weight: 400;
+    color: #46484a;
+}
+
+.fas.fa-fingerprint{
+    transition: all 1s 0.1s;
+    opacity: 1;
+}
+
+.fade {
+    opacity: 0.36 !important;
+}
