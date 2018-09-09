@@ -1,32 +1,53 @@
- <div class="container">
+<div class="container">
   <div class="row">
-    <div class="col-lg-6 mx-auto">
-      {{#if message }}
-      <div class="alert alert-{{ messageType }} text-center">
-        {{ message }}
-      </div>
-      {{/if}}
+
+    {{!-- O-Auth --}}
+    <div class="col-lg-4 mb-3">
       <div class="card">
         <div class="card-header text-center">
           <i class="fas fa-sign-in-alt pr-2"></i>
-          Login
+          Sign In with Other
         </div>
-        <form class="card-body" action="/login" method="POST">
-          <div class="form-group">
-            <label for="exampleInputEmail1">Email address</label>
-            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email"
-              name="email" required>
-          </div>
-          <div class="form-group">
-            <label for="exampleInputPassword1">Password</label>
-            <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" name="password"
-              required>
-          </div>
-          <button type="submit" class="btn btn-primary">Login</button>
-          <a href="/register" class="badge ml-4 text-md">Signup</a>
-        </form>
+        <div class="card-body">
+          <div class="mb-3 fixMiddle"><a href="/auth/google" class="btn btn-danger"><i class="fab fa-google-plus-g"></i>&nbsp;&nbsp;Google</a></div>
+          <div class="mb-3 fixMiddle"><a href="/auth/facebook" class="btn btn-primary"><i class="fab fa-facebook-f"></i>&nbsp;&nbsp;Facebook</a></div>
+        </div>
       </div>
     </div>
+
+    <div class="col-lg-8">
+      <div class="row">
+        {{!-- Local Auth --}}
+        <div class="col-lg-10 mx-auto">
+          {{#if message }}
+          <div class="alert alert-{{ messageType }} text-center">
+            {{ message }}
+          </div>
+          {{/if}}
+          <div class="card">
+            <div class="card-header text-center">
+              <i class="fas fa-sign-in-alt pr-2"></i>
+              Login
+            </div>
+            <form class="card-body" action="/login" method="POST">
+              <div class="form-group">
+                <label for="exampleInputEmail1">Email address</label>
+                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                  placeholder="Enter email" name="email" required>
+              </div>
+              <div class="form-group">
+                <label for="exampleInputPassword1">Password</label>
+                <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" name="password"
+                  required>
+              </div>
+              <button type="submit" class="btn btn-primary">Login</button>
+              <a href="/register" class="badge ml-4 text-md">Signup</a>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
   </div>
 
 </div>

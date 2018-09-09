@@ -9,7 +9,7 @@ app.engine('handlebars', exphbs({defaultLayout: 'main'}));
 app.set('view engine', 'handlebars');
 
 app.use('/auth', authRoutes);
-app.use(express.static('public'));
+app.use(express.static(__dirname + '/public'));
 // Home(root) route
 app.get('/', (req,res)=> {
     res.render('home');
