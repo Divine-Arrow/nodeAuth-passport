@@ -1,8 +1,15 @@
 const express = require('express');
 const exphbs = require('express-handlebars');
+const mongoose = require('mongoose');
 
 const authRoutes = require('./routes/auth-routes');
+const keys = require('./config/keys');
+const passportSetup = require('./config/passport-setup');
 const app = express();
+
+// connect mongoDB
+mongoose.connect(keys.mongo.stringURI,{ useNewUrlParser: true });
+
 
 // view engine
 app.engine('handlebars', exphbs({defaultLayout: 'main'}));
