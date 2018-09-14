@@ -1,20 +1,6 @@
 <div class="container">
   <div class="row">
 
-    {{!-- O-Auth --}}
-    <div class="col-lg-4 mb-3">
-      <div class="card">
-        <div class="card-header text-center">
-          <i class="fas fa-sign-in-alt pr-2"></i>
-          Sign In with Other
-        </div>
-        <div class="card-body">
-          <div class="mb-3 fixMiddle"><a href="/auth/google" class="btn btn-danger"><i class="fab fa-google-plus-g"></i>&nbsp;&nbsp;Google</a></div>
-          <div class="mb-3 fixMiddle"><a href="/auth/facebook" class="btn btn-primary"><i class="fab fa-facebook-f"></i>&nbsp;&nbsp;Facebook</a></div>
-        </div>
-      </div>
-    </div>
-
     <div class="col-lg-8">
       <div class="row">
         {{!-- Local Auth --}}
@@ -44,6 +30,20 @@
               <a href="/register" class="badge ml-4 text-md">Signup</a>
             </form>
           </div>
+        </div>
+      </div>
+    </div>
+
+    {{!-- O-Auth --}}
+    <div class="col-lg-4 mt-5">
+      <div class="card">
+        <div class="card-header text-center">
+          <i class="fas fa-sign-in-alt pr-2"></i>
+          Sign In with Other
+        </div>
+        <div class="card-body">
+          <div class="mb-3 fixMiddle"><a href="/auth/google" class="btn btn-danger"><i class="fab fa-google-plus-g"></i>&nbsp;&nbsp;Google</a></div>
+          <div class="mb-3 fixMiddle"><a href="/auth/facebook" class="btn btn-primary"><i class="fab fa-facebook-f"></i>&nbsp;&nbsp;Facebook</a></div>
         </div>
       </div>
     </div>
