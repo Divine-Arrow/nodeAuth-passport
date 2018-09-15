@@ -27,6 +27,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 
+// app.all('*', authCheck);
 
 // Home(root) route
 app.get('/', (req,res)=> {

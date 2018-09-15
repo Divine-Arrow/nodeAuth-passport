@@ -2,8 +2,14 @@
 
 const google = {
     clientID : ""/* your client id from google console API */,
-    clientSecret "": /* your client secrect from google console API */
+    clientSecret: "" /* your client secrect from google console API */
 }
+
+const facebook = {
+    clientID : ""/* your client id from FACEBOOK console API */,
+    clientSecret: "" /* your client secrect from FACEBOK console API */
+}
+
 
 const mongo = {
     stringURI: '' /* Mongo URL localhost or mlab */
@@ -17,5 +23,6 @@ const session = {
 module.exports = {
     google,
     mongo,
-    session
+    session,
+    facebook
 };
