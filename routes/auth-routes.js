@@ -7,7 +7,8 @@ router.get('/login', (req, res) => {
 
 router.get('/logout', (req, res) => {
     // passport code
-    res.send('logout');
+    req.logout();
+    res.redirect('/');
 });
 
 router.get('/google', passport.authenticate('google',{

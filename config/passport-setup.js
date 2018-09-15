@@ -4,6 +4,20 @@ const GoogleStrategy = require('passport-google-oauth20');
 const keys = require('./keys');
 const User = require('../models/user-model');
 
+passport.serializeUser((user, done) => {
+    done(null, user.id);
+});
+
+passport.deserializeUser((id, done) => {
+    User.findById(id).then((user) => {
+        if(user){
+            return done(null, user);
+        }
+        done(null, null);
+    })
+});
+
+
 
 passport.use(
     new GoogleStrategy({
@@ -13,7 +27,6 @@ passport.use(
         clientSecret: keys.google.clientSecret
     }, (accessToken, refreshToken, data, done) => {
         // console.log(JSON.stringify(data, undefined,2));
-        // console.log(data.photos[0].value);
         // find user
         User.findOne({googleId: data.id}).then((currentUser) => {
             if (currentUser) {
@@ -22,7 +35,7 @@ passport.use(
                 const newUser = new User({
                     userName: data.displayName,
                     googleId: data.id,
-                    gImageUrl: data.photos[0].value
+                    gImageUrl: data._json.image.url
                 });
                 newUser.save().then((userData) => {
                     done(null, userData);
@@ -38,18 +51,5 @@ passport.use(
 
 
 
-passport.serializeUser((user, done) => {
-    done(null, user.id);
-});
-
-passport.deserializeUser((id, done) => {
-    User.findById(id).then((user) => {
-        if(user) {
-            return done(null, user.id);
-        }
-    }).catch((e)=> {
-        console.log('error***********\n',e);
-    });
-});
 
 
