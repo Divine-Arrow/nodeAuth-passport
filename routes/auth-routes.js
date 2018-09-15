@@ -12,11 +12,12 @@ router.get('/logout', (req, res) => {
 });
 
 router.get('/google', passport.authenticate('google',{
-    scope: ['profile']
+    scope: ['profile', 'email']
 }));
 
 router.get('/facebook', passport.authenticate('facebook',{
-    /* scope: ['email','user_age_range','user_birthday','user_friends','user_gender','user_hometown','user_locations'] */
+    /* scope: ['email','user_birthday','user_friends','user_gender','user_hometown','user_location'] */
+    scope: ['email']
 }));
 
 // redirect route of GOOGLE

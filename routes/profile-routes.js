@@ -13,7 +13,7 @@ const authCheck = (req, res, next) => {
 
 
 router.get('/',authCheck, (req, res) => {
-    var userData = _.pick(req.user, ['userName', 'gImageUrl']);
+    var userData = _.pick(req.user, ['userName', 'thumbnail', 'email']);
     res.render('profile', {userData});
 });
 

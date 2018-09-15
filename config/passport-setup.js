@@ -39,7 +39,8 @@ passport.use(
                 const newUser = new User({
                     userName: data.displayName,
                     googleId: data.id,
-                    gImageUrl: data._json.image.url
+                    thumbnail: data._json.image.url,
+                    email: data._json.emails[0].value
                 });
                 newUser.save().then((userData) => {
                     done(null, userData);
@@ -56,7 +57,9 @@ passport.use(new facebookStrategy({
     callbackURL: "/auth/facebook/redirect",
     clientID: keys.facebook.clientID,
     clientSecret: keys.facebook.clientSecret,
-    failureRedirect: '/login'
+    failureRedirect: '/login',
+    // profileFields: ['email','age_range','user_birthday','friends','gender','hometown','location']
+    profileFields: ['email']
 }, (accessToken, refreshToken, profile, done) => {
     console.log(profile);
 }));
