@@ -1,5 +1,8 @@
 // after filling all empty space.. rename this file to keys.js
 
+
+
+// https://developers.facebook.com/docs/facebook-login/permissions/
 const google = {
     clientID : ""/* your client id from google console API */,
     clientSecret: "" /* your client secrect from google console API */

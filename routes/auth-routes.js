@@ -16,19 +16,19 @@ router.get('/google', passport.authenticate('google',{
 }));
 
 router.get('/facebook', passport.authenticate('facebook',{
-    /* scope: ['email','user_birthday','user_friends','user_gender','user_hometown','user_location'] */
-    scope: ['email']
+    // the scope is porvided on the passport-setup.js
+    scope: ['user_gender', 'user_birthday', 'user_location', 'user_hometown', 'user_age_range']
 }));
 
 // redirect route of GOOGLE
 router.get('/google/redirect', passport.authenticate('google'), (req,res)=> {
-    res.redirect('/profile')
+    res.redirect('/profile');
 });
 
 // redirect route of FACEBOOK
 router.get('/facebook/redirect', passport.authenticate('facebook'), (req,res)=> {
     // res.redirect('/profile')
-    res.send('facebook done');
+    res.redirect('/profile');
 });
 
 module.exports = router;
