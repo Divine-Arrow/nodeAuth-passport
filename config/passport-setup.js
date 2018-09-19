@@ -31,7 +31,7 @@ passport.use(
         // console.log(JSON.stringify(data, undefined,2));
         // find user
         User.findOne({
-            googleId: data.id
+            email: data._json.emails[0].value
         }).then((currentUser) => {
             if (currentUser) {
                 done(null, currentUser);
@@ -45,7 +45,7 @@ passport.use(
                 newUser.save().then((userData) => {
                     done(null, userData);
                 }, (e) => {
-                    console.log('something went wrong');
+                    console.log('something went wrong\n',e);
                 });
             }
 
