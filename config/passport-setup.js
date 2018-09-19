@@ -27,25 +27,29 @@ passport.use(
         clientID: keys.google.clientID,
         clientSecret: keys.google.clientSecret,
         failureRedirect: '/login',
-    }, (accessToken, refreshToken, data, done) => {
-        // console.log(JSON.stringify(data, undefined,2));
+    }, (accessToken, refreshToken, profile, done) => {
+        // console.log(JSON.stringify(profile, undefined,2));
         // find user
+        console.log(profile);
         User.findOne({
-            email: data._json.emails[0].value
+            email: profile._json.emails[0].value
         }).then((currentUser) => {
             if (currentUser) {
                 done(null, currentUser);
             } else {
                 const newUser = new User({
-                    name: data.displayName,
-                    googleId: data.id,
-                    gThumbnail: data._json.image.url,
-                    email: data._json.emails[0].value
+                    name: profile.displayName,
+                    firstName: profile._json.name.givenName,
+                    lastName: profile._json.name.familyName,
+                    gender: profile._json.gender,
+                    googleId: profile.id,
+                    gThumbnail: profile._json.image.url,
+                    email: profile._json.emails[0].value
                 });
                 newUser.save().then((userData) => {
                     done(null, userData);
                 }, (e) => {
-                    console.log('something went wrong\n',e);
+                    console.log('something went wrong\n', e);
                 });
             }
 

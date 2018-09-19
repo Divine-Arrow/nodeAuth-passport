@@ -7,7 +7,11 @@
             <div class="row">
                 <div class="col-md-4 col-sm-6 divider">
                     <div class="card">
+                        {{#if userData.fThumbnail}}
                         <img class="card-img-top" src="{{userData.fThumbnail}}" alt="Card image cap">
+                        {{else}}
+                        <img class="card-img-top" src="{{userData.gThumbnail}}" alt="Card image cap">
+                        {{/if }}
                         <div class="card-body">
                             <ul class="list-group list-group-flush">
                                 <li class="list-group-item">
@@ -67,7 +71,7 @@
                         </div>
                     </div>
                     <div class="card-body mt-3 border border-warning deleteBarPadding">
-                        <div class="card-body p-1">
+                        <div class="card-body p-1 pl-2">
                             <div class="row">
 
                                 {{!-- Delete Section --}}
@@ -111,7 +115,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                <button type="button" class="btn btn-danger">Delete</button>
+                <a href="/user/delete/{{userData.id}}"> <button type="button" class="btn btn-danger">Delete</button></a>
             </div>
         </div>
     </div>

@@ -6,18 +6,58 @@ const userSchema = new mongoose.Schema({
         unique: true,
         lowercase: true
     },
-    name: String,
-    firstName: String,
-    lastName: String,
-    gender: String,
-    googleId: String,
+    name: {
+        type: String,
+        default: 'none',
+        trim: true
+    },
+    firstName: {
+        type: String,
+        default: 'none',
+        trim: true
+    },
+    lastName: {
+        type: String,
+        default: 'none',
+        trim: true
+    },
+    gender: {
+        type: String,
+        default: 'none',
+        trim: true
+    },
+    googleId: {
+        type: String,
+        default: 'none'
+    },
     ageRange: Object,
-    facebookId: String,
-    birthdate: String,
-    gThumbnail: String,
-    fThumbnail: String,
-    hometown: String,
-    location: String
+    facebookId: {
+        type: String,
+        default: 'none'
+    },
+    birthdate: {
+        type: String,
+        default: 'none',
+        trim: true
+    },
+    gThumbnail: {
+        type: String,
+        default: 'none'
+    },
+    fThumbnail: {
+        type: String,
+        default: 'none'
+    },
+    hometown: {
+        type: String,
+        default: 'none',
+        trim: true
+    },
+    location: {
+        type: String,
+        default: 'none',
+        trim: true
+    }
 });
 
 var User = mongoose.model('user', userSchema);

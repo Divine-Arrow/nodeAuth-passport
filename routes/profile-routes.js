@@ -14,6 +14,7 @@ const authCheck = (req, res, next) => {
 
 router.get('/',authCheck, (req, res) => {
     // var userData = _.pick(req.user, ['name', 'fThumbnail' ,'gThumbnail', 'email', 'location']);
+    console.log(req.user.gThumbnail);
     res.render('profile', {userData:req.user});
 });
 
