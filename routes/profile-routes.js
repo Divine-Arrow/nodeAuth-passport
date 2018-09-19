@@ -12,10 +12,21 @@ const authCheck = (req, res, next) => {
 };
 
 
-router.get('/',authCheck, (req, res) => {
-    // var userData = _.pick(req.user, ['name', 'fThumbnail' ,'gThumbnail', 'email', 'location']);
-    console.log(req.user.gThumbnail);
-    res.render('profile', {userData:req.user});
+router.get('/', authCheck, (req, res) => {
+    if (req.user.gThumbnail) {
+        req.user.gThumbnail480 = `${req.user.gThumbnail.split('?sz')[0]}?sz=480`
+        req.user.gThumbnail25 = `${req.user.gThumbnail.split('?sz')[0]}?sz=25`
+    }
+    var userData = _.pick(req.user, ['gThumbnail480', 'gThumbnail25', 'gThumbnail', 'fThumbnail', 'name', 'email', 'firstName', 'lastName', 'gender', 'birthdate', 'hometown', 'location', 'id']);
+    for (var prop in userData) {
+        if (!userData[prop]) {
+            userData[prop] = '-----';
+        }
+    }
+
+    res.render('profile', {
+        userData
+    });
 });
 
 module.exports = router;

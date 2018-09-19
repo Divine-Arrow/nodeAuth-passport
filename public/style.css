@@ -44,3 +44,7 @@ body {
 .deleteBarPadding {
     padding: 0.5rem;
 }
+
+.circled {
+    border-radius: 50%;
+}

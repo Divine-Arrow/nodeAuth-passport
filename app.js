@@ -16,7 +16,6 @@ mongoose.connect(keys.mongo.stringURI, {
     useNewUrlParser: true
 });
 
-
 // view engine
 app.engine('handlebars', exphbs({
     defaultLayout: 'main'
