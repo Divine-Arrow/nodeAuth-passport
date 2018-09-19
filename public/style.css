@@ -27,3 +27,12 @@ body {
 .fixMiddle {
     text-align: center;
 }
+
+.tilt {
+    font-style: italic;
+    color: #6c757d;
+}
+
+.divider {
+    border-right: solid 1px #ababab;
+}

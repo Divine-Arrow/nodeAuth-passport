@@ -13,8 +13,8 @@ const authCheck = (req, res, next) => {
 
 
 router.get('/',authCheck, (req, res) => {
-    var userData = _.pick(req.user, ['name', 'fThumbnail' ,'gThumbnail', 'email', 'location']);
-    res.render('profile', {userData});
+    // var userData = _.pick(req.user, ['name', 'fThumbnail' ,'gThumbnail', 'email', 'location']);
+    res.render('profile', {userData:req.user});
 });
 
 module.exports = router;

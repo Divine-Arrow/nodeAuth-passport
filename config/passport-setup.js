@@ -61,7 +61,6 @@ passport.use(new facebookStrategy({
     profileFields: ['hometown', 'location', 'picture.height(480)', 'name', 'displayName', 'birthday', 'gender', 'email', 'age_range'],
     // https://developers.facebook.com/docs/facebook-login/permissions/
 }, (accessToken, refreshToken, profile, done) => {
-    console.log(JSON.stringify(profile._json, undefined, 2));
     // console.log(profile);
     User.findOne({
         email: profile._json.email

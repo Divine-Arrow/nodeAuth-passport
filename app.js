@@ -31,7 +31,7 @@ app.use(passport.session());
 
 // Home(root) route
 app.get('/', (req,res)=> {
-    res.render('home');
+    res.render('home',{script: true});
 });
 
 app.get('/login', (req,res)=> {
