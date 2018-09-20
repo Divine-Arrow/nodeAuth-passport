@@ -1,6 +1,8 @@
 const router = require('express').Router();
+const _ = require('lodash');
 
 const User = require('../models/user-model');
+const transferSetup = require('../config/transferSetup');
 
 router.get('/delete/:id', (req, res) => {
     User.deleteOne({
@@ -12,6 +14,14 @@ router.get('/delete/:id', (req, res) => {
         return res.redirect('/profile')
     }, (e) => {
         console.log('Something went wrong while deleting user\n', e)
+    });
+});
+
+
+router.get('/edit/:id', (req, res)=>{
+    const userData = transferSetup(req.user);
+    res.render('edit', {
+        userData
     });
 });
 

@@ -1,5 +1,6 @@
 const router = require('express').Router();
-const _ = require('lodash');
+
+const transferSetup = require('../config/transferSetup');
 
 // auth Check middleware
 const authCheck = (req, res, next) => {
@@ -13,24 +14,7 @@ const authCheck = (req, res, next) => {
 
 
 router.get('/', authCheck, (req, res) => {
-    if (req.user.gThumbnail) {
-        req.user.gThumbnail480 = `${req.user.gThumbnail.split('?sz')[0]}?sz=480`
-        req.user.gThumbnail25 = `${req.user.gThumbnail.split('?sz')[0]}?sz=25`
-    }
-    var userData = _.pick(req.user, ['gThumbnail480', 'gThumbnail25', 'gThumbnail', 'fThumbnail', 'name', 'email', 'firstName', 'lastName', 'gender', 'birthdate', 'hometown', 'location', 'id']);
-    for (var prop in userData) {
-        if (prop === 'gThumbnail' && userData[prop]) {
-            // console.log('**********\ngot it\n',prop);
-            userData.isFThumbnail = false;
-            userData.isGThumbnail = true;
-        } else if(prop === 'fThumbnail' && userData[prop]){
-            userData.isFThumbnail = true;
-            userData.isGThumbnail = false;
-        }
-        if (!userData[prop] && typeof userData[prop] !== Boolean) {
-            userData[prop] = '-----';
-        }
-    }
+    const userData = transferSetup(req.user);
     res.render('profile', {
         userData
     });

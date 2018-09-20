@@ -5,9 +5,9 @@
         </div>
         <div class="card-body">
             <div class="row">
-                <div class="col-md-4 col-sm-6 divider">
+                <div class="col-md-4 col-sm-12 divider">
                     <div class="card">
-                        {{#if userData.isFThumbnail}}
+                        {{#if userData.isFThumnailDefault}}
                         <img class="img-thumbnail" src="{{userData.fThumbnail}}" alt="ImageProfile">
                         {{else}}
                         <img class="img-thumbnail" src="{{userData.gThumbnail480}}" alt="ImageProfile">
@@ -24,47 +24,47 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-8 col-sm-6">
+                <div class="col-md-8 col-sm-12">
                     <div class="card">
                         <div class="card-body">
                             <div class="form-group row">
-                                <h6 class="col-sm-4 col-form-label">First name</h6>
-                                <div class="col-sm-8">
+                                <h6 class="col-md-6 col-sm-4 col-form-label">First name</h6>
+                                <div class="col-lg-6 col-md-6 col-sm-6">
                                     <p class="form-control-plaintext">{{userData.firstName}}</p>
                                 </div>
                             </div>
                             <hr class="my-2">
                             <div class="form-group row">
-                                <h6 class="col-sm-4 col-form-label">Last name</h6>
-                                <div class="col-sm-8">
+                                <h6 class="col-md-6 col-sm-4 col-form-label">Last name</h6>
+                                <div class="col-lg-6 col-md-6 col-sm-6">
                                     <p class="form-control-plaintext">{{userData.lastName}}</p>
                                 </div>
                             </div>
                             <hr class="my-2">
                             <div class="form-group row">
-                                <h6 class="col-sm-4 col-form-label">Gender</h6>
-                                <div class="col-sm-8">
+                                <h6 class="col-md-6 col-sm-4 col-form-label">Gender</h6>
+                                <div class="col-lg-6 col-md-6 col-sm-6">
                                     <p class="form-control-plaintext">{{userData.gender}}</p>
                                 </div>
                             </div>
                             <hr class="my-2">
                             <div class="form-group row">
-                                <h6 class="col-sm-4 col-form-label">Birth Date</h6>
-                                <div class="col-sm-8">
+                                <h6 class="col-md-6 col-sm-4 col-form-label">Birth Date</h6>
+                                <div class="col-lg-6 col-md-6 col-sm-6">
                                     <p class="form-control-plaintext">{{userData.birthdate}}</p>
                                 </div>
                             </div>
                             <hr class="my-2">
                             <div class="form-group row">
-                                <h6 class="col-sm-4 col-form-label">Hometown</h6>
-                                <div class="col-sm-8">
+                                <h6 class="col-md-6 col-sm-4 col-form-label">Hometown</h6>
+                                <div class="col-lg-6 col-md-6 col-sm-6">
                                     <p class="form-control-plaintext">{{userData.hometown}}</p>
                                 </div>
                             </div>
                             <hr class="my-2">
                             <div class="form-group row mb-0">
-                                <h6 class="col-sm-4 col-form-label">Location</h6>
-                                <div class="col-sm-8">
+                                <h6 class="col-md-6 col-sm-4 col-form-label">Location</h6>
+                                <div class="col-lg-6 col-md-6 col-sm-6">
                                     <p class="form-control-plaintext">{{userData.location}}</p>
                                 </div>
                             </div>
@@ -74,18 +74,29 @@
                         <div class="card-body p-1 pl-2">
                             <div class="row">
 
-                                {{!-- Delete Section --}}
-                                <h6 class="col-sm-4 col-form-label">Edit Profile</h6>
-                                <div class="col-sm-2 divider">
-                                    <a href="#"> <button type="button" class="btn btn-info">Edit
-                                        </button></a>
+                                <div class="col-lg-6 col-sm-12">
+                                    <div class="row">
+                                        {{!-- Delete Section --}}
+                                        <h6 class="col-sm-8 col-form-label d- -none">Edit Profile</h6>
+                                        <div class="col-sm-4 border-right border-warning">
+                                            <a href="/user/edit/{{userData.id}}"> <button type="button" class="btn btn-info">Edit
+                                                </button></a>
+                                        </div>
+                                    </div>
+                                    <hr class="d-lg-none my-sm-2">
                                 </div>
-                                {{!-- Edit Profile Section --}}
-                                <h6 class="col-sm-4 col-form-label">Delete Account</h6>
-                                <div class="col-sm-2">
-                                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModalCenter">
-                                        Delete
-                                    </button>
+
+                                <div class="col-lg-6 col-sm-12">
+                                    <div class="row">
+                                        {{!-- Edit Profile Section --}}
+                                        <h6 class="col-sm-8 col-form-label">Delete Account</h6>
+                                        <div class="col-sm-4">
+                                            <button type="button" class="btn btn-danger" data-toggle="modal"
+                                                data-target="#exampleModalCenter">
+                                                Delete
+                                            </button>
+                                        </div>
+                                    </div>
                                 </div>
 
                             </div>

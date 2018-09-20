@@ -39,6 +39,9 @@ const userSchema = new mongoose.Schema({
     fThumbnail: {
         type: String,
     },
+    isFThumnailDefault: {
+        type: Boolean
+    },
     hometown: {
         type: String,
         trim: true

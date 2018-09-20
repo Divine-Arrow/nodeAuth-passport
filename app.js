@@ -3,6 +3,7 @@ const exphbs = require('express-handlebars');
 const mongoose = require('mongoose');
 const cokkieSesion = require('cookie-session');
 const passport = require('passport');
+const bodyParser  = require('body-parser');
 
 const authRoutes = require('./routes/auth-routes');
 const profileRoutes = require('./routes/profile-routes');
@@ -22,6 +23,7 @@ app.engine('handlebars', exphbs({
 }));
 app.set('view engine', 'handlebars');
 
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(__dirname + '/public'));
 app.use(cokkieSesion({
     maxAge: 24 * 60 * 1000,
@@ -50,6 +52,10 @@ app.use('/auth', authRoutes);
 app.use('/profile', profileRoutes);
 
 app.use('/user', userRoutes);
+
+app.post('/updateProfile', (req, res) => {
+    console.log(req.body);
+});
 
 app.listen(3000, () => {
     console.log('server is started in port: 3000');

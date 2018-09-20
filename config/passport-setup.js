@@ -71,7 +71,7 @@ passport.use(new facebookStrategy({
         if (currentUser) {
             done(null, currentUser);
         } else {
-            const updatedData = {
+            const modelData = {
                 name: profile._json.name,
                 firstName: profile._json.first_name,
                 lastName: profile._json.last_name,
@@ -80,28 +80,42 @@ passport.use(new facebookStrategy({
                 ageRange: profile._json.age_range,
                 facebookId: profile._json.id,
                 fThumbnail: profile._json.picture.data.url,
+                isFThumnailDefault: true,
                 birthdate: profile._json.birthday,
                 hometown: profile._json.hometown.name,
                 location: profile._json.location.name
             }
-            User.updateOne({
-                $set: updatedData
-            }).then((updateStatus) => {
-                if (updateStatus.n > 0) {
-                    User.findOne({
-                        facebookId: profile._json.id,
-                    }).then((updatedUser) => {
-                        if (updatedUser) {
-                            done(null, updatedUser);
+            User.findOne({
+                email: profile._json.email
+            }).then((existingEmail) => {
+                if (existingEmail) {
+                    User.updateOne({
+                        $set: modelData
+                    }).then((updateStatus) => {
+                        if (updateStatus.n > 0) {
+                            User.findOne({
+                                facebookId: profile._json.id,
+                            }).then((updatedUser) => {
+                                if (updatedUser) {
+                                    done(null, updatedUser);
+                                }
+                            }, (e) => {
+                                console.log('Error in Updated user', e);
+                            })
                         }
                     }, (e) => {
-                        console.log('Error in Updated user', e);
-                    })
+                        console.log('error while updating data:\n', e);
+                    });
+                } else {
+                    new User(modelData).save().then((newCreatedUser) => {
+                        if (newCreatedUser) {
+                            return done(null, newCreatedUser);
+                        }
+                        console.log('new user is not created');
+                    },(e)=>{console.log('Somthing went wrong when creating new User database\n',e)});
                 }
-            }, (e) => {
-                console.log('error while updating data:\n', e);
             });
         }
 
-    }, (e) => done(e));
+    }, (e) => console.log(e));
 }));
