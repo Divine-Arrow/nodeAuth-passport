@@ -19,11 +19,18 @@ router.get('/', authCheck, (req, res) => {
     }
     var userData = _.pick(req.user, ['gThumbnail480', 'gThumbnail25', 'gThumbnail', 'fThumbnail', 'name', 'email', 'firstName', 'lastName', 'gender', 'birthdate', 'hometown', 'location', 'id']);
     for (var prop in userData) {
-        if (!userData[prop]) {
+        if (prop === 'gThumbnail' && userData[prop]) {
+            // console.log('**********\ngot it\n',prop);
+            userData.isFThumbnail = false;
+            userData.isGThumbnail = true;
+        } else if(prop === 'fThumbnail' && userData[prop]){
+            userData.isFThumbnail = true;
+            userData.isGThumbnail = false;
+        }
+        if (!userData[prop] && typeof userData[prop] !== Boolean) {
             userData[prop] = '-----';
         }
     }
-
     res.render('profile', {
         userData
     });

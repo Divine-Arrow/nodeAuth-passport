@@ -29,8 +29,8 @@ passport.use(
         failureRedirect: '/login',
     }, (accessToken, refreshToken, profile, done) => {
         // console.log(JSON.stringify(profile, undefined,2));
-        // find user
         console.log(profile);
+        // find user
         User.findOne({
             email: profile._json.emails[0].value
         }).then((currentUser) => {
