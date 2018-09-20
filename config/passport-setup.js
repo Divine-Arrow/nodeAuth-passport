@@ -29,7 +29,6 @@ passport.use(
         failureRedirect: '/login',
     }, (accessToken, refreshToken, profile, done) => {
         // console.log(JSON.stringify(profile, undefined,2));
-        console.log(profile);
         // find user
         User.findOne({
             email: profile._json.emails[0].value
@@ -67,12 +66,12 @@ passport.use(new facebookStrategy({
 }, (accessToken, refreshToken, profile, done) => {
     // console.log(profile);
     User.findOne({
-        email: profile._json.email
+        facebookId: profile._json.id,
     }).then((currentUser) => {
         if (currentUser) {
             done(null, currentUser);
         } else {
-            const newUser = new User({
+            const updatedData = {
                 name: profile._json.name,
                 firstName: profile._json.first_name,
                 lastName: profile._json.last_name,
@@ -84,11 +83,23 @@ passport.use(new facebookStrategy({
                 birthdate: profile._json.birthday,
                 hometown: profile._json.hometown.name,
                 location: profile._json.location.name
-            });
-            newUser.save().then((userData) => {
-                if (userData) {
-                    done(null, userData);
+            }
+            User.updateOne({
+                $set: updatedData
+            }).then((updateStatus) => {
+                if (updateStatus.n > 0) {
+                    User.findOne({
+                        facebookId: profile._json.id,
+                    }).then((updatedUser) => {
+                        if (updatedUser) {
+                            done(null, updatedUser);
+                        }
+                    }, (e) => {
+                        console.log('Error in Updated user', e);
+                    })
                 }
+            }, (e) => {
+                console.log('error while updating data:\n', e);
             });
         }
 
