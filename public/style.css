@@ -1,5 +1,5 @@
 body {
-    background-color: #e9ecef; 
+    background-color: #e9ecef;
 }
 
 * {
@@ -19,7 +19,7 @@ body {
     color: #46484a;
 }
 
-.fas.fa-fingerprint{
+.fas.fa-fingerprint {
     transition: all 1s 0.1s;
     opacity: 1;
 }
@@ -47,4 +47,12 @@ body {
 
 .circled {
     border-radius: 50%;
+}
+
+.backSize {
+    font-size: 1.5em;
+}
+
+.fixHover:hover {
+    
 }

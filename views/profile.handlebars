@@ -15,8 +15,7 @@
                         <div class="card-body">
                             <ul class="list-group list-group-flush">
                                 <li class="list-group-item">
-                                    <h5 class="card-title">{{userData.name}}</h5>
-                                </li>
+                                    <h5 class="card-title">{{userData.firstName}} {{userData.lastName}}</h5>
                                 <li class="list-group-item">
                                     <h6 class="card-text tilt">{{userData.email}}</h6>
                                 </li>
@@ -77,7 +76,7 @@
                                 <div class="col-lg-6 col-sm-12">
                                     <div class="row">
                                         {{!-- Delete Section --}}
-                                        <h6 class="col-sm-8 col-form-label d- -none">Edit Profile</h6>
+                                        <h6 class="col-sm-8 col-form-label">Edit Profile</h6>
                                         <div class="col-sm-4 border-right border-warning">
                                             <a href="/user/edit/{{userData.id}}"> <button type="button" class="btn btn-info">Edit
                                                 </button></a>

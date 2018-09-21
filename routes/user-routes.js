@@ -17,7 +17,6 @@ router.get('/delete/:id', (req, res) => {
     });
 });
 
-
 router.get('/edit/:id', (req, res)=>{
     const userData = transferSetup(req.user);
     res.render('edit', {
@@ -26,7 +25,15 @@ router.get('/edit/:id', (req, res)=>{
 });
 
 router.post('/updateProfile/:id', (req, res) => {
-    
+
+    const newData = _.pick(req.body, ['firstName', 'lastName', 'gender', 'birthdate', 'hometown', 'location']);
+    User.findByIdAndUpdate(req.params.id, newData, {new: true}).then((updatedData) => {
+        if(updatedData) {
+            res.redirect('/profile');
+        }
+    }, (e)=> {
+        res.redirect('/profile');
+    });
 });
 
 
