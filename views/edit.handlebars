@@ -25,7 +25,7 @@
                     </div>
                 </div>
                 <div class="col-md-8 col-sm-12">
-                    <form action="/updateProfile" method="POST">
+                    <form action="/user/updateProfile/{{userData.id}}" method="POST">
                         <div class="card">
                             <div class="card-body">
                                 <div class="form-group row">
@@ -52,7 +52,8 @@
                                 <div class="form-group row">
                                     <h6 class="col-md-6 col-sm-4 col-form-label">Birth Date</h6>
                                     <div class="col-lg-6 col-md-6 col-sm-6">
-                                        <input type="text" value="{{userData.birthdate}}" class="form-control" name="birthdate">
+                                        <input value="{{userData.birthdate}}" id="datepicker" width="276" class="form-control"
+                                            name="birthdate">
                                     </div>
                                 </div>
                                 <hr class="my-2">
@@ -87,7 +88,7 @@
                                         <div class="modal-dialog modal-dialog-centered" role="document">
                                             <div class="modal-content">
                                                 <div class="modal-header">
-                                                    <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+                                                    <h5 class="modal-title text-warning" id="exampleModalLongTitle">Warning</h5>
                                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                         <span aria-hidden="true">&times;</span>
                                                     </button>

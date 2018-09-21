@@ -25,4 +25,9 @@ router.get('/edit/:id', (req, res)=>{
     });
 });
 
+router.post('/updateProfile/:id', (req, res) => {
+    
+});
+
+
 module.exports = router;

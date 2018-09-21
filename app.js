@@ -53,10 +53,6 @@ app.use('/profile', profileRoutes);
 
 app.use('/user', userRoutes);
 
-app.post('/updateProfile', (req, res) => {
-    console.log(req.body);
-});
-
 app.listen(3000, () => {
     console.log('server is started in port: 3000');
 });
