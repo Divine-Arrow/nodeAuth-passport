@@ -5,7 +5,7 @@ setUserData = (dbUser) => {
         dbUser.gThumbnail480 = `${dbUser.gThumbnail.split('?sz')[0]}?sz=480`
         dbUser.gThumbnail25 = `${dbUser.gThumbnail.split('?sz')[0]}?sz=25`
     }
-    var userData = _.pick(dbUser, ['gThumbnail480', 'gThumbnail25', 'gThumbnail', 'fThumbnail', 'isFThumnailDefault', 'name', 'email', 'firstName', 'lastName', 'gender', 'birthdate', 'hometown', 'location', 'id']);
+    var userData = _.pick(dbUser, ['gThumbnail', 'fThumbnail', 'isFThumnailDefault', 'name', 'email', 'firstName', 'lastName', 'gender', 'birthdate', 'hometown', 'location', 'id']);
 
     for (var prop in userData) {
         if (prop === 'isFThumnailDefault') {

@@ -37,12 +37,11 @@ passport.use(
                 done(null, currentUser);
             } else {
                 const newUser = new User({
-                    name: profile.displayName,
                     firstName: profile._json.name.givenName,
                     lastName: profile._json.name.familyName,
                     gender: profile._json.gender,
                     googleId: profile.id,
-                    gThumbnail: profile._json.image.url,
+                    gThumbnail: `${profile._json.image.url.split('?sz')[0]}?sz=480`,
                     email: profile._json.emails[0].value
                 });
                 newUser.save().then((userData) => {
@@ -72,7 +71,6 @@ passport.use(new facebookStrategy({
             done(null, currentUser);
         } else {
             const modelData = {
-                name: profile._json.name,
                 firstName: profile._json.first_name,
                 lastName: profile._json.last_name,
                 gender: profile._json.gender,
