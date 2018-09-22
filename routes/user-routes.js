@@ -8,7 +8,7 @@ router.get('/delete/:id', (req, res) => {
     User.deleteOne({
         _id: req.params.id
     }).then((removedUser) => {
-        if(removedUser.n > 0){
+        if (removedUser.n > 0) {
             return res.redirect('/login');
         }
         return res.redirect('/profile')
@@ -17,7 +17,7 @@ router.get('/delete/:id', (req, res) => {
     });
 });
 
-router.get('/edit/:id', (req, res)=>{
+router.get('/edit/:id', (req, res) => {
     const userData = transferSetup(req.user);
     res.render('edit', {
         userData
@@ -27,11 +27,13 @@ router.get('/edit/:id', (req, res)=>{
 router.post('/updateProfile/:id', (req, res) => {
 
     const newData = _.pick(req.body, ['firstName', 'lastName', 'gender', 'birthdate', 'hometown', 'location']);
-    User.findByIdAndUpdate(req.params.id, newData, {new: true}).then((updatedData) => {
-        if(updatedData) {
+    User.findByIdAndUpdate(req.params.id, newData, {
+        new: true
+    }).then((updatedData) => {
+        if (updatedData) {
             res.redirect('/profile');
         }
-    }, (e)=> {
+    }, (e) => {
         res.redirect('/profile');
     });
 });

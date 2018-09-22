@@ -53,6 +53,8 @@ body {
     font-size: 1.5em;
 }
 
-.fixHover:hover {
-    
+.selectShadow:focus{
+    border-color: #80bdff;
+    outline: 0;
+    box-shadow: 0 0 0 0.08rem rgba(128,189,255,.5);
 }

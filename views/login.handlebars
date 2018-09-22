@@ -5,6 +5,13 @@
       <div class="row">
         {{!-- Local Auth --}}
         <div class="col-lg-10 mx-auto">
+          {{!-- message flash --}}
+          {{!-- {{#if flash}}
+          <div class="alert alert-{{flash.type}}" role="alert">
+            {{flash.message}}
+          </div>
+          {{/if}} --}}
+          <h1>{{flash}}</h1>
           <div class="card">
             <div class="card-header text-center">
               <i class="fas fa-sign-in-alt pr-2"></i>

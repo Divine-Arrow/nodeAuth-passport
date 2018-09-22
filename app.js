@@ -8,6 +8,7 @@ const bodyParser = require('body-parser');
 const authRoutes = require('./routes/auth-routes');
 const profileRoutes = require('./routes/profile-routes');
 const userRoutes = require('./routes/user-routes');
+const registerRoute = require('./routes/register');
 const keys = require('./config/keys');
 const passportSetup = require('./config/passport-setup');
 const app = express();
@@ -31,7 +32,6 @@ app.use(cokkieSesion({
     maxAge: 24 * 60 * 1000,
     keys: [keys.session.key]
 }));
-
 app.use(passport.initialize());
 app.use(passport.session());
 
@@ -68,20 +68,8 @@ app.get('/', (req, res) => {
 // login
 app.get('/login', (req, res) => {
     if (req.user)
-        return res.redirect('/profile')
+        return res.redirect('/profile');
     res.render('login');
-});
-
-// register
-app.get('/register', (req, res) => {
-    if (req.user)
-        return res.redirect('/profile')
-    res.render('register');
-});
-
-// register
-app.post('/register', (req, res) => {
-    res.send(JSON.stringify(req.body,undefined,2));
 });
 
 // auth routes
@@ -90,6 +78,8 @@ app.use('/auth', authRoutes);
 app.use('/profile', authCheck, profileRoutes);
 
 app.use('/user', authCheck, userRoutes);
+
+app.use('/register', registerRoute);
 
 app.listen(3000, () => {
     console.log('server is started in port: 3000');
