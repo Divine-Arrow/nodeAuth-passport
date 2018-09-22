@@ -1,0 +1,80 @@
+<div class="container">
+    <div class="row">
+
+        <div class="col-lg-8">
+            <div class="row">
+                {{!-- Local Auth --}}
+                <div class="col-lg-10 mx-auto">
+                    <div class="card">
+                        <div class="card-header text-center">
+                            <i class="fas fa-sign-in-alt pr-2"></i>
+                            Register
+                        </div>
+                        <form class="card-body" action="/register" method="POST">
+                            <div class="row form-group">
+                                <div class="col">
+                                    <label for="exampleInputEmail1">Name</label>
+                                    <input type="text" class="form-control" placeholder="First name" name="firstName"
+                                        autofocus required>
+                                </div>
+                                <div class="col">
+                                    <label>Last Name</label>
+                                    <input type="text" class="form-control" placeholder="Last name" name="lastName">
+                                </div>
+                            </div>
+                            <div class="row form-group">
+                                <div class="col">
+                                    <label for="datepicker">Gender</label>
+                                    <select class="custom-select" name="gender">
+                                        <option selected>select gender</option>
+                                        <option value="male">Male</option>
+                                        <option value="female">Female</option>
+                                        <option value="others">Others</option>
+                                    </select>
+                                </div>
+                                <div class="col">
+                                    <label for="datepicker">Birthdate</label>
+                                    <input id="datepicker" class="form-control" name="birthdate">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Email address</label>
+                                <input type="email" class="form-control" placeholder="Enter email" name="email"
+                                    required>
+                            </div>
+                            <div class="form-group">
+                                <label>Password</label>
+                                <input type="password" class="form-control" placeholder="Password" name="password"
+                                    required>
+                            </div>
+                            <div class="form-group">
+                                <label>Confirm Password</label>
+                                <input type="password" class="form-control" placeholder="Confirm Password" name="confirmPassword"
+                                    required>
+                            </div>
+                            <button type="submit" class="btn btn-warning">Signup</button>
+                            <div class="dropdown-divider"></div>
+                            <a class="form-group mb-0" href="/login">Already registered? Login</a>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {{!-- O-Auth --}}
+        <div class="col-lg-4 mt-5">
+            <div class="card">
+                <div class="card-header text-center">
+                    <i class="fas fa-sign-in-alt pr-2"></i>
+                    Sign In with
+                </div>
+                <div class="card-body">
+                    <div class="mb-3 fixMiddle"><a href="/auth/google" class="btn btn-danger"><i class="fab fa-google-plus-g"></i>&nbsp;&nbsp;Google</a></div>
+                    <div class="mb-3 fixMiddle"><a href="/auth/facebook" class="btn btn-primary"><i class="fab fa-facebook-f"></i>&nbsp;&nbsp;Facebook</a></div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>

@@ -55,19 +55,33 @@ app.get('/', (req, res) => {
         res.locals.profileThumbnail = null;
         res.locals.profileThumbnail = null;
         res.locals.isUser = false;
+    } else {
+        res.locals.isUser = true;
+        res.locals.profileThumbnail = req.user.gThumbnail;
+        res.locals.profileThumbnail = req.user.fThumbnail;
     }
-    res.locals.isUser = true;
-    res.locals.profileThumbnail = req.user.gThumbnail;
-    res.locals.profileThumbnail = req.user.fThumbnail;
     res.render('home', {
         script: true
     });
 });
 
+// login
 app.get('/login', (req, res) => {
     if (req.user)
         return res.redirect('/profile')
     res.render('login');
+});
+
+// register
+app.get('/register', (req, res) => {
+    if (req.user)
+        return res.redirect('/profile')
+    res.render('register');
+});
+
+// register
+app.post('/register', (req, res) => {
+    res.send(JSON.stringify(req.body,undefined,2));
 });
 
 // auth routes

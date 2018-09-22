@@ -5,11 +5,6 @@
       <div class="row">
         {{!-- Local Auth --}}
         <div class="col-lg-10 mx-auto">
-          {{#if message }}
-          <div class="alert alert-{{ messageType }} text-center">
-            {{ message }}
-          </div>
-          {{/if}}
           <div class="card">
             <div class="card-header text-center">
               <i class="fas fa-sign-in-alt pr-2"></i>
@@ -29,8 +24,8 @@
               <button type="submit" class="btn btn-primary">Login</button>
               <div class="dropdown-divider"></div>
               <div class="row">
-                <a class="col-sm-6 form-group" href="/register">New around here? Sign up</a>
-                <a class="col-sm-6 form-group" href="#">Forgot password?</a>
+                <a class="col-sm-6 form-group mb-0" href="/register">New around here? Sign up</a>
+                <a class="col-sm-6 form-group mb-0" href="#">Forgot password?</a>
               </div>
 
             </form>
@@ -44,7 +39,7 @@
       <div class="card">
         <div class="card-header text-center">
           <i class="fas fa-sign-in-alt pr-2"></i>
-          Sign In with Other
+          Sign In with
         </div>
         <div class="card-body">
           <div class="mb-3 fixMiddle"><a href="/auth/google" class="btn btn-danger"><i class="fab fa-google-plus-g"></i>&nbsp;&nbsp;Google</a></div>

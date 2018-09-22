@@ -16,7 +16,9 @@ router.get('/google/redirect', passport.authenticate('google'), (req, res) => {
 });
 
 // redirect route of FACEBOOK
-router.get('/facebook/redirect', passport.authenticate('facebook'), (req, res) => {
+router.get('/facebook/redirect', passport.authenticate('facebook', {
+    failureRedirect: '/login'
+}), (req, res) => {
     // res.redirect('/profile')
     res.redirect('/profile');
 });

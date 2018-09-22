@@ -20,7 +20,8 @@ const userSchema = new mongoose.Schema({
     },
     gender: {
         type: String,
-        trim: true
+        trim: true,
+        lowercase: true
     },
     googleId: {
         type: String,
