@@ -7,11 +7,14 @@
             <div class="row">
                 <div class="col-md-4 col-sm-12 divider">
                     <div class="card">
+
                         {{#if userData.isFThumnailDefault}}
-                        <img class="img-thumbnail" src="{{userData.fThumbnail}}" alt="ImageProfile">
+                            <img src="{{userData.fThumbnail}}" class="img-thumbnail">
                         {{else}}
-                        <img class="img-thumbnail" src="{{userData.gThumbnail}}" alt="ImageProfile">
+                            <img src="{{userData.gThumbnail}}" class="img-thumbnail">
                         {{/if }}
+
+
                         <div class="card-body">
                             <ul class="list-group list-group-flush">
                                 <li class="list-group-item">

@@ -8,7 +8,6 @@ const bodyParser = require('body-parser');
 const authRoutes = require('./routes/auth-routes');
 const profileRoutes = require('./routes/profile-routes');
 const userRoutes = require('./routes/user-routes');
-const registerRoute = require('./routes/register');
 const keys = require('./config/keys');
 const passportSetup = require('./config/passport-setup');
 const app = express();
@@ -65,13 +64,6 @@ app.get('/', (req, res) => {
     });
 });
 
-// login
-app.get('/login', (req, res) => {
-    if (req.user)
-        return res.redirect('/profile');
-    res.render('login');
-});
-
 // auth routes
 app.use('/auth', authRoutes);
 
@@ -79,7 +71,6 @@ app.use('/profile', authCheck, profileRoutes);
 
 app.use('/user', authCheck, userRoutes);
 
-app.use('/register', registerRoute);
 
 app.listen(3000, () => {
     console.log('server is started in port: 3000');

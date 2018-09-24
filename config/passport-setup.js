@@ -1,6 +1,7 @@
 const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth20');
-const facebookStrategy = require('passport-facebook');
+const FacebookStrategy = require('passport-facebook');
+const LocalStrategy = require('passport-local');
 
 const keys = require('./keys');
 const User = require('../models/user-model');
@@ -18,44 +19,93 @@ passport.deserializeUser((id, done) => {
     })
 });
 
+passport.use('local-signup', new LocalStrategy({
+        usernameField: 'email',
+        passwordField: 'password',
+        passReqToCallback: true
+    },
+    (req, email, password, done) => {
+        process.nextTick(() => {
+            User.findOne({
+                email
+            }).then((foundedUser) => {
+                if (foundedUser) {
+                    return done(null, false);
+                }
+                var newUser = new User(req.body);
+                newUser.password = newUser.generateHash(password);
+                newUser.save().then((savedUser) => {
+                    if (!savedUser) {
+                        return done(err)
+                    }
+                    return done(null, savedUser);
+                });
+            }).catch((e) => {
+                if (e) {
+                    done(e);
+                }
+            });
+        })
+    }));
 
-
-passport.use(
-    new GoogleStrategy({
-        // option for google strategy
-        callbackURL: '/auth/google/redirect',
-        clientID: keys.google.clientID,
-        clientSecret: keys.google.clientSecret,
-        failureRedirect: '/login',
-    }, (accessToken, refreshToken, profile, done) => {
-        // console.log(JSON.stringify(profile, undefined,2));
-        // find user
+passport.use('local-login', new LocalStrategy({
+        usernameField: 'email',
+        passwordField: 'password',
+        passReqToCallback: true
+    },
+    (req, email, password, done) => {
         User.findOne({
-            email: profile._json.emails[0].value
-        }).then((currentUser) => {
-            if (currentUser) {
-                done(null, currentUser);
-            } else {
-                const newUser = new User({
-                    firstName: profile._json.name.givenName,
-                    lastName: profile._json.name.familyName,
-                    gender: profile._json.gender,
-                    googleId: profile.id,
-                    gThumbnail: `${profile._json.image.url.split('?sz')[0]}?sz=480`,
-                    email: profile._json.emails[0].value
-                });
-                newUser.save().then((userData) => {
-                    done(null, userData);
-                }, (e) => {
-                    console.log('something went wrong\n', e);
-                });
+            email
+        }).then((foundedUser) => {
+            if (!foundedUser)
+                return done(null, false);
+            if (!foundedUser.validPassword(password)) {
+                console.log(foundedUser.validPassword(password));
+                return done(null, false);
             }
-
+            return done(null, foundedUser);
+        }).catch((e) => {
+            if (e) {
+                done(e);
+            }
         });
     }));
 
+passport.use(new GoogleStrategy({
+    // option for google strategy
+    callbackURL: '/auth/google/redirect',
+    clientID: keys.google.clientID,
+    clientSecret: keys.google.clientSecret,
+    failureRedirect: '/login',
+}, (accessToken, refreshToken, profile, done) => {
+    // console.log(JSON.stringify(profile, undefined,2));
+    // find user
+    User.findOne({
+        email: profile._json.emails[0].value
+    }).then((currentUser) => {
+        if (currentUser) {
+            done(null, currentUser);
+        } else {
+            const newUser = new User({
+                firstName: profile._json.name.givenName,
+                lastName: profile._json.name.familyName,
+                gender: profile._json.gender,
+                googleId: profile.id,
+                gThumbnail: `${profile._json.image.url.split('?sz')[0]}?sz=480`,
+                email: profile._json.emails[0].value
+            });
+            newUser.save().then((userData) => {
+                done(null, userData);
+            }, (e) => {
+                console.log('something went wrong\n', e);
+            });
+        }
 
-passport.use(new facebookStrategy({
+    });
+}));
+
+
+passport.use(new FacebookStrategy({
     callbackURL: "/auth/facebook/redirect",
     clientID: keys.facebook.clientID,
     clientSecret: keys.facebook.clientSecret,
@@ -110,7 +160,9 @@ passport.use(new facebookStrategy({
                             return done(null, newCreatedUser);
                         }
                         console.log('new user is not created');
-                    },(e)=>{console.log('Somthing went wrong when creating new User database\n',e)});
+                    }, (e) => {
+                        console.log('Somthing went wrong when creating new User database\n', e)
+                    });
                 }
             });
         }
