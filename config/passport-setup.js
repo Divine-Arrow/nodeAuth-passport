@@ -5,11 +5,11 @@ const LocalStrategy = require('passport-local');
 
 var keys;
 try {
-    if(require('./config/keys')) {
-        keys = require('./config/keys');
+    if(require('./keys')) {
+        keys = require('./keys');
     };
 }catch(e) {
-    keys = require('./config/herokuKeys') 
+    keys = require('./herokuKeys') 
 };
 const User = require('../models/user-model');
 
