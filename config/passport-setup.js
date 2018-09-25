@@ -3,7 +3,14 @@ const GoogleStrategy = require('passport-google-oauth20');
 const FacebookStrategy = require('passport-facebook');
 const LocalStrategy = require('passport-local');
 
-const keys = require('./keys') || require('./herokuKeys');
+var keys;
+try {
+    if(require('./config/keys')) {
+        keys = require('./config/keys');
+    };
+}catch(e) {
+    keys = require('./config/herokuKeys') 
+};
 const User = require('../models/user-model');
 
 passport.serializeUser((user, done) => {
