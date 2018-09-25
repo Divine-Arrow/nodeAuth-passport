@@ -22,7 +22,7 @@ router.get('/login', (req, res) => {
 
 router.post('/login', passport.authenticate('local-login', {
     successRedirect: '/profile',
-    failureRedirect: '/login'
+    failureRedirect: 'auth/login'
 }));
 
 // google
@@ -43,7 +43,7 @@ router.get('/facebook', passport.authenticate('facebook', {
 
 // redirect route of FACEBOOK
 router.get('/facebook/redirect', passport.authenticate('facebook', {
-    failureRedirect: '/login'
+    failureRedirect: '/auth/login'
 }), (req, res) => {
     // res.redirect('/profile')
     res.redirect('/profile');

@@ -47,7 +47,8 @@ const userSchema = new mongoose.Schema({
         default: '/images/defaultProfile/male.jpg'
     },
     isFThumnailDefault: {
-        type: Boolean
+        type: Boolean,
+        default: true
     },
     hometown: {
         type: String,

@@ -8,7 +8,11 @@ const bodyParser = require('body-parser');
 const authRoutes = require('./routes/auth-routes');
 const profileRoutes = require('./routes/profile-routes');
 const userRoutes = require('./routes/user-routes');
-const keys = require('./config/keys');
+try {
+    const keys = require('./config/keys');
+} catch {
+    const keys = require('./config/herokuKeys');
+}
 const passportSetup = require('./config/passport-setup');
 const app = express();
 
@@ -72,6 +76,6 @@ app.use('/profile', authCheck, profileRoutes);
 app.use('/user', authCheck, userRoutes);
 
 
-app.listen(3000, () => {
-    console.log('server is started in port: 3000');
+app.listen(PORT, () => {
+    console.log(`server is started at port: ${PORT}`);
 });

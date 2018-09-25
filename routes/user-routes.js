@@ -9,7 +9,7 @@ router.get('/delete/:id', (req, res) => {
         _id: req.params.id
     }).then((removedUser) => {
         if (removedUser.n > 0) {
-            return res.redirect('/login');
+            return res.redirect('/auth/login');
         }
         return res.redirect('/profile')
     }, (e) => {
