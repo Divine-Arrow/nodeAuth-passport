@@ -10,15 +10,14 @@ const profileRoutes = require('./routes/profile-routes');
 const userRoutes = require('./routes/user-routes');
 
 // env setup
-var PORT = process.env.PORT || 3000;
+var port = process.env.PORT || 3000;
 var keys;
 try {
-    if(require('./config/keys')) {
-        keys = require('./config/keys');
-    };
-}catch(e) {
-    keys = require('./config/herokuKeys') 
+    keys = require('./config/herokuKeys');
+} catch (e) {
+    keys = require('./config/keys');
 };
+
 const passportSetup = require('./config/passport-setup');
 const app = express();
 
@@ -82,6 +81,6 @@ app.use('/profile', authCheck, profileRoutes);
 app.use('/user', authCheck, userRoutes);
 
 
-app.listen(PORT, () => {
-    console.log(`server is started at port: ${PORT}`);
+app.listen(port, () => {
+    console.log(`server is started at port: ${port}`);
 });

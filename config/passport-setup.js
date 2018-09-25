@@ -5,11 +5,9 @@ const LocalStrategy = require('passport-local');
 
 var keys;
 try {
-    if(require('./keys')) {
-        keys = require('./keys');
-    };
-}catch(e) {
-    keys = require('./herokuKeys') 
+    keys = require('./herokuKeys');
+} catch (e) {
+    keys = require('./keys');
 };
 const User = require('../models/user-model');
 
@@ -67,7 +65,6 @@ passport.use('local-login', new LocalStrategy({
             if (!foundedUser)
                 return done(null, false);
             if (!foundedUser.validPassword(password)) {
-                console.log(foundedUser.validPassword(password));
                 return done(null, false);
             }
             return done(null, foundedUser);
