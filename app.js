@@ -8,11 +8,8 @@ const bodyParser = require('body-parser');
 const authRoutes = require('./routes/auth-routes');
 const profileRoutes = require('./routes/profile-routes');
 const userRoutes = require('./routes/user-routes');
-try {
-    const keys = require('./config/keys');
-} catch {
-    const keys = require('./config/herokuKeys');
-}
+const keys = require('./config/keys') || require('./config/herokuKeys');
+var PORT = process.env.PORT || 3000;
 const passportSetup = require('./config/passport-setup');
 const app = express();
 
