@@ -5,9 +5,9 @@ const LocalStrategy = require('passport-local');
 
 var keys;
 try {
-    keys = require('./herokuKeys');
-} catch (e) {
     keys = require('./keys');
+} catch (e) {
+    keys = require('./herokuKeys');
 };
 const User = require('../models/user-model');
 
@@ -74,6 +74,7 @@ passport.use('local-login', new LocalStrategy({
             }
         });
     }));
+
 
 passport.use(new GoogleStrategy({
     // option for google strategy

@@ -13,9 +13,9 @@ const userRoutes = require('./routes/user-routes');
 var port = process.env.PORT || 3000;
 var keys;
 try {
-    keys = require('./config/herokuKeys');
-} catch (e) {
     keys = require('./config/keys');
+} catch (e) {
+    keys = require('./config/herokuKeys');
 };
 
 const passportSetup = require('./config/passport-setup');
@@ -49,7 +49,7 @@ const authCheck = (req, res, next) => {
         res.locals.profileThumbnail = null;
         res.locals.profileThumbnail = null;
         res.locals.isUser = false;
-        return res.redirect('/login');
+        return res.redirect('/auth/login');
     }
     res.locals.isUser = true;
     res.locals.profileThumbnail = req.user.gThumbnail;
