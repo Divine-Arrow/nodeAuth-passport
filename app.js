@@ -8,6 +8,7 @@ const bodyParser = require('body-parser');
 const authRoutes = require('./routes/auth-routes');
 const profileRoutes = require('./routes/profile-routes');
 const userRoutes = require('./routes/user-routes');
+const User = require('./models/user-model');
 
 // env setup
 var port = process.env.PORT || 3000;
@@ -37,7 +38,7 @@ app.use(bodyParser.urlencoded({
 }));
 app.use(express.static(__dirname + '/public'));
 app.use(cokkieSesion({
-    maxAge: 24 * 60 * 1000,
+    maxAge: 60 * 60 * 1000,
     keys: [keys.session.key]
 }));
 app.use(passport.initialize());
@@ -72,6 +73,28 @@ app.get('/', (req, res) => {
         script: true
     });
 });
+
+app.get('/verify/:str', (req, res) => {
+    User.findOneAndUpdate({
+        verificationLink: req.params.str
+    }, {
+        $set: {
+            isVerified: true
+        },
+        $unset:{
+            verificationLink: 1
+        }
+    }).then((userData) => {
+        if (userData && !userData.isVerified) {
+            res.redirect('/auth/login');
+        }
+        return res.send('error');
+    }).catch((e) => {
+        if (e)
+            console.log('something went wrong', e);
+    });
+});
+
 
 // auth routes
 app.use('/auth', authRoutes);

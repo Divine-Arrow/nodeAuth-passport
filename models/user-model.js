@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 
+
 const userSchema = new mongoose.Schema({
     email: {
         type: String,
@@ -9,6 +10,13 @@ const userSchema = new mongoose.Schema({
     },
     password: {
         type: String
+    },
+    verificationLink: {
+        type: String
+    },
+    isVerified: {
+        type: Boolean,
+        default: false
     },
     name: {
         type: String,
@@ -61,7 +69,7 @@ const userSchema = new mongoose.Schema({
 
 userSchema.methods.generateHash = password => bcrypt.hashSync(password, bcrypt.genSaltSync(8));
 
-userSchema.methods.validPassword = pass => bcrypt.compare(pass, this.password).then((res) => res);
+userSchema.methods.validatePassword = pass => bcrypt.compare(pass, this.password).then((res) => res);
 
 
 var User = mongoose.model('user', userSchema);

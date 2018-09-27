@@ -19,11 +19,14 @@
     "cookie-session": "^2.0.0-beta.3",
     "express": "^4.16.3",
     "express-handlebars": "^3.0.0",
+    "greenlock-express": "^2.4.6",
     "lodash": "^4.17.11",
     "mongoose": "^5.2.14",
+    "nodemailer": "^4.6.8",
     "passport": "^0.4.0",
     "passport-facebook": "^2.1.1",
     "passport-google-oauth20": "^1.0.0",
-    "passport-local": "^1.0.0"
+    "passport-local": "^1.0.0",
+    "randomstring": "^1.1.5"
   }
 }

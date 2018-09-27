@@ -1,4 +1,6 @@
 const passport = require('passport');
+const randomstring = require("randomstring");
+const nodemailer = require('./nodemailer');
 const GoogleStrategy = require('passport-google-oauth20');
 const FacebookStrategy = require('passport-facebook');
 const LocalStrategy = require('passport-local');
@@ -12,7 +14,12 @@ try {
 const User = require('../models/user-model');
 
 passport.serializeUser((user, done) => {
-    done(null, user.id);
+    User.findById(user.id).then((userData) => {
+        if (userData && userData.isVerified) {
+            done(null, user.id);
+        };
+        done('please verify your email');
+    });
 });
 
 passport.deserializeUser((id, done) => {
@@ -30,27 +37,33 @@ passport.use('local-signup', new LocalStrategy({
         passReqToCallback: true
     },
     (req, email, password, done) => {
-        process.nextTick(() => {
-            User.findOne({
-                email
-            }).then((foundedUser) => {
-                if (foundedUser) {
-                    return done(null, false);
+        User.findOne({
+            email
+        }).then((foundedUser) => {
+            if (foundedUser) {
+                return done(null, false);
+            }
+            var newUser = new User(req.body);
+            newUser.password = newUser.generateHash(password);
+            newUser.verificationLink = randomstring.generate();
+            newUser.save().then((savedUser) => {
+                if (!savedUser) {
+                    return done(err)
                 }
-                var newUser = new User(req.body);
-                newUser.password = newUser.generateHash(password);
-                newUser.save().then((savedUser) => {
-                    if (!savedUser) {
-                        return done(err)
-                    }
-                    return done(null, savedUser);
+                const link = `${req.protocol}://${req.get('host')}/verify/${savedUser.verificationLink}`
+                nodemailer.send(savedUser.email, link, (err, status, mess) => {
+                    if (!err)
+                        return console.log("successfully sent");
+                    return console.log('error found.');
+
                 });
-            }).catch((e) => {
-                if (e) {
-                    done(e);
-                }
+                done('email is sent, confirm to proceed');
             });
-        })
+        }).catch((e) => {
+            if (e) {
+                done(e);
+            }
+        });
     }));
 
 passport.use('local-login', new LocalStrategy({
@@ -63,12 +76,17 @@ passport.use('local-login', new LocalStrategy({
             email
         }).then((foundedUser) => {
             if (!foundedUser)
-                return done(null, false);
-            if (!foundedUser.validPassword(password)) {
-                return done(null, false);
-            }
+                return done('User is not registered.');
+            if (!foundedUser.password)
+                return done(`user did not seted up the password`);
+            else if (!foundedUser.validatePassword(password)) {
+                return done(`something went wrong after validating.`);
+            } else if (!foundedUser.isVerified) {
+                done('please update your email');
+            };
             return done(null, foundedUser);
         }).catch((e) => {
+            console.log("Error found***************", e);
             if (e) {
                 done(e);
             }

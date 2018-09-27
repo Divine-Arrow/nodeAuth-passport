@@ -10,7 +10,7 @@ router.get('/register', (req, res) => {
 
 router.post('/register', passport.authenticate('local-signup', {
     successRedirect: '/profile',
-    failureRedirect: '/register'
+    failureRedirect: '/auth/register'
 }));
 
 // local-login
@@ -22,7 +22,7 @@ router.get('/login', (req, res) => {
 
 router.post('/login', passport.authenticate('local-login', {
     successRedirect: '/profile',
-    failureRedirect: 'auth/login'
+    failureRedirect: '/auth/login'
 }));
 
 // google
