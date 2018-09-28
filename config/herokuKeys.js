@@ -19,7 +19,7 @@ const session = {
 const nodemailer = {
     service: process.env.MAILER_SERVICE,
     adminEmailId : process.env.MAILER_ADMIN_MAILID,
-    adminEmailPassword: process.env.MAILER_ADMIN_PASSWORD
+    adminEmailPassword: process.env.MAILER_ADMIN_PASSWORD,
     from: process.env.MAILER_FROM
 }
 
