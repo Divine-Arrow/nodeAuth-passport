@@ -27,10 +27,14 @@ npm install
 Setting up heroku keys
 
 `
-change all the fields in the file of ./config/herokuKeys.js
+change all the fields in the file of ./config/herokuKeys.js with your credential
 `
 
 Run
 ```
 node app.js
 ```
+
+`
+server will run in http://localhost:3000/
+`
