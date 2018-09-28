@@ -91,7 +91,7 @@ app.get('/verify/:str', (req, res) => {
         return res.send('error');
     }).catch((e) => {
         if (e)
-            console.log('something went wrong', e);
+            console.log('something went wrong at /verify/:str');
     });
 });
 

@@ -1,5 +1,4 @@
 const passport = require('passport');
-const randomstring = require("randomstring");
 const nodemailer = require('./nodemailer');
 const GoogleStrategy = require('passport-google-oauth20');
 const FacebookStrategy = require('passport-facebook');
@@ -45,7 +44,8 @@ passport.use('local-signup', new LocalStrategy({
             }
             var newUser = new User(req.body);
             newUser.password = newUser.generateHash(password);
-            newUser.verificationLink = randomstring.generate();
+            newUser.verificationLink = newUser.generateText(email);
+            
             newUser.save().then((savedUser) => {
                 if (!savedUser) {
                     return done(err)

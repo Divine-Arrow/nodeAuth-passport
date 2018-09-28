@@ -69,7 +69,14 @@ const userSchema = new mongoose.Schema({
 
 userSchema.methods.generateHash = password => bcrypt.hashSync(password, bcrypt.genSaltSync(8));
 
+userSchema.methods.generateText = text => {
+    var str = bcrypt.hashSync(text, bcrypt.genSaltSync(8));
+    str = str.replace(/\//gi, 'c');
+    return str;
+};
+
 userSchema.methods.validatePassword = (pass, hash) => bcrypt.compareSync(pass, hash);
+
 
 
 var User = mongoose.model('user', userSchema);
