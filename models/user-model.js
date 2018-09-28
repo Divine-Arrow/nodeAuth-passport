@@ -69,7 +69,7 @@ const userSchema = new mongoose.Schema({
 
 userSchema.methods.generateHash = password => bcrypt.hashSync(password, bcrypt.genSaltSync(8));
 
-userSchema.methods.validatePassword = pass => bcrypt.compare(pass, this.password).then((res) => res);
+userSchema.methods.validatePassword = (pass, hash) => bcrypt.compareSync(pass, hash);
 
 
 var User = mongoose.model('user', userSchema);

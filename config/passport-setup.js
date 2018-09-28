@@ -52,12 +52,14 @@ passport.use('local-signup', new LocalStrategy({
                 }
                 const link = `${req.protocol}://${req.get('host')}/verify/${savedUser.verificationLink}`
                 nodemailer.send(savedUser.email, link, (err, status, mess) => {
-                    if (!err)
+                    if (err)
+                        return console.log('error found while sending mail.\n',e);
+                    if (status) {
+                        done('email is sent, confirm to proceed');
                         return console.log("successfully sent");
-                    return console.log('error found.');
+                    }
 
                 });
-                done('email is sent, confirm to proceed');
             });
         }).catch((e) => {
             if (e) {
@@ -79,8 +81,8 @@ passport.use('local-login', new LocalStrategy({
                 return done('User is not registered.');
             if (!foundedUser.password)
                 return done(`user did not seted up the password`);
-            else if (!foundedUser.validatePassword(password)) {
-                return done(`something went wrong after validating.`);
+            else if (!foundedUser.validatePassword(password, foundedUser.password)) {
+                return done(`password is wrong.`);
             } else if (!foundedUser.isVerified) {
                 done('please update your email');
             };

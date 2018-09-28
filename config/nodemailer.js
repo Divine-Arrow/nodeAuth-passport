@@ -21,13 +21,13 @@ var transporter = nodemailer.createTransport({
 var send = function (email, link, callback) {
     const mailOptions = {
         from: keys.nodemailer.from,
-        to: 'bhupenders225@gmail.com',
+        to: email,
         subject: 'verification',
         html: `<p>Click this link to verify <a href="${link}">${link}</p>`
     };
     transporter.sendMail(mailOptions, function (err, info) {
         if (err)
-            return callback('error found');
+            return callback(err);
         return callback(false, true, info);
     });
 };
