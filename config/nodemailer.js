@@ -1,5 +1,11 @@
 const nodemailer = require('nodemailer');
-const keys = require('./keys');
+var keys;
+try {
+    keys = require('./keys');
+} catch (e) {
+    keys = require('./herokuKeys');
+};
+
 
 var transporter = nodemailer.createTransport({
     service: keys.nodemailer.service,
